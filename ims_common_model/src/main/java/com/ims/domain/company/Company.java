@@ -1,11 +1,11 @@
 package com.ims.domain.company;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -38,13 +38,11 @@ import java.util.Date;
  *          i。主键属性的映射
  *          ii。普通属性的映射
  */
-
-
 @Entity
 @Table(name = "co_company")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Company implements Serializable {
     private static final long serialVersionUID = 594829320797158219L;
     //ID
