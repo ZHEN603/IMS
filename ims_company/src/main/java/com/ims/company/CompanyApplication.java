@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 
 //1.配置springboot的包扫描
-@SpringBootApplication(scanBasePackages = "com.ims.company")
+@SpringBootApplication(scanBasePackages = "com.ims")
 //2.配置jpa注解的扫描
 @EntityScan(value="com.ims.domain.company")
 
