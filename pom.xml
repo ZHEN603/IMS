@@ -15,6 +15,9 @@
         <module>ims_common</module>
         <module>ims_common_model</module>
         <module>ims_company</module>
+        <module>ims_user</module>
+        <module>ims_eureka</module>
+        <module>ims_gate</module>
     </modules>
 
     <parent>
@@ -54,6 +57,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
     </dependencies>
     <repositories>
