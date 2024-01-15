@@ -7,12 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ims_eureka" />
+        <module name="ims_gate" />
         <module name="ims_company" />
+        <module name="ims_user" />
         <module name="ims_common" />
         <module name="ims_common_model" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="ins_user" target="17" />
       <module name="untitled" target="21" />
       <module name="untitled1" target="17" />
     </bytecodeTargetLevel>
@@ -22,7 +26,11 @@
       <module name="ims_common" options="-parameters" />
       <module name="ims_common_model" options="-parameters" />
       <module name="ims_company" options="-parameters" />
+      <module name="ims_eureka" options="-parameters" />
+      <module name="ims_gate" options="-parameters" />
       <module name="ims_parent" options="-parameters" />
+      <module name="ims_user" options="-parameters" />
+      <module name="ins_user" options="-parameters" />
       <module name="untitled1" options="-parameters" />
     </option>
   </component>
