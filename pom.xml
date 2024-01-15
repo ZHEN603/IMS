@@ -18,6 +18,7 @@
         <module>ims_user</module>
         <module>ims_eureka</module>
         <module>ims_gate</module>
+        <module>ims_product</module>
     </modules>
 
     <parent>

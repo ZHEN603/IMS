@@ -1,0 +1,38 @@
+#注册到eureka的服务地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:6868/eureka
+  instance:
+    perfer-ip-address : true
+#服务配置
+server:
+  port: 9090
+#spring配置
+spring:
+  #1.应用配置
+  application:
+    name: ims-gate #指定服务名
+  #配置路由规则
+  cloud:
+    gateway:
+      routes:
+        - id: company
+          uri: http://localhost:9001
+          predicates:
+            - Path=/company/**
+      discovery:
+        locator:
+          enable: true
+          lower-case-service-id: true
+#    routes:
+#      #路由id
+#      ims-company:
+#        path: /company/** #需要映射的路径地址
+#        server-id: ims-company  #映射路径对应的实际微服务的url路径
+#      ims-user:
+#        path: /user/** #需要映射的路径地址
+#        server-id: ims-user  #映射路径对应的实际微服务的url路径
+#      test:
+#        path: /test/** #需要映射的路径地址
+#        url: http://www.baidu.com  #映射路径对应的实际微服务的url路径
