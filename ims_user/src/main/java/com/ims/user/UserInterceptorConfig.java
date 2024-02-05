@@ -13,7 +13,7 @@ public class UserInterceptorConfig extends WebMvcConfigurationSupport {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor).
                 addPathPatterns("/**").
-                excludePathPatterns("/user/login"); //设置不拦截的请求地址
+                excludePathPatterns("/user/login");
     }
 }
 
