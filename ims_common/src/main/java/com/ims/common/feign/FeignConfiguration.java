@@ -29,9 +29,14 @@ public class FeignConfiguration {
                     if (headerNames != null) {
                         while (headerNames.hasMoreElements()) {
                             String name = headerNames.nextElement(); //请求头名称 Authorization
-                            String value = request.getHeader(name);//请求头数据 "Bearer b1dbb4cf-7de6-41e5-99e2-0e8b7e8fe6ee"
-                            requestTemplate.header(name,value);
+                            if (!name.equals("content-length")){
+                                String value = request.getHeader(name);//请求头数据 "Bearer b1dbb4cf-7de6-41e5-99e2-0e8b7e8fe6ee"
+                                requestTemplate.header(name,value);
+                            }
+
                         }
+//                        String value = request.getHeader("Authorization");//请求头数据 "Bearer b1dbb4cf-7de6-41e5-99e2-0e8b7e8fe6ee"
+//                        requestTemplate.header("Authorization",value);
                     }
                 }
 
