@@ -1,73 +1,67 @@
 package com.ims.company.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ims.common.utils.IdWorker;
+import com.ims.company.client.UserFeignClient;
 import com.ims.company.dao.CompanyDao;
 import com.ims.domain.company.Company;
+import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class CompanyService {
-
     @Autowired
     private CompanyDao companyDao;
-
     @Autowired
     private IdWorker idWorker;
-    /**
-     * 保存用户
-     *  1.配置idwork到工程
-     *  2.在service中注入idwork
-     *  3.通过idwork生成id
-     *  4.保存用户
-     */
-    public void add(Company company) {
-        //基本属性的设置
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Autowired
+    private UserFeignClient userFeignClient;
+
+    public void save(Company company) {
         String id = idWorker.nextId()+"";
+        String userId = idWorker.nextId()+"";
         company.setId(id);
-        //默认的状态
-        company.setAuditState("0");//0：未审核，1：已审核
-        company.setState(1); //0.未激活，1：已激活
+        company.setManagerId(userId);
+        company.setCreateTime(new Date());
         companyDao.save(company);
+        userFeignClient.saveAdmin(userId, company.getName(), company.getId());
     }
 
-    /**
-     * 更新用户
-     *  1.参数：Company
-     *  2.根据id查询用户对象
-     *  3.设置修改的属性
-     *  4.调用dao完成更新
-     */
-    public void update(Company company) {
-        companyDao.save(company);
-    }
+    public void update(Company company) { companyDao.save(company); }
 
-
-    /**
-     * 删除用户
-     */
     public void deleteById(String id) {
         companyDao.deleteById(id);
     }
 
-    /**
-     * 根据id查询用户
-     */
     public Company findById(String id) {
         return companyDao.findById(id).get();
     }
 
-    /**
-     * 查询用户列表
-     */
     public List<Company> findAll() {
         return companyDao.findAll();
     }
 
-    public Company save(Company company) {
-        return companyDao.save(company);
+    public Page<Company> findAll(int page, int size, String keyword){
+        Specification<Company> spec = new Specification<Company>() {
+            @Override
+            public Predicate toPredicate(Root<Company> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> list = new ArrayList<>();
+                if (keyword != null && !keyword.trim().isEmpty()) {
+                    list.add(cb.like(root.get("name"), "%" + keyword.trim() + "%"));
+                }
+                return cb.and(list.toArray(new Predicate[0]));
+            }
+        };
+        return companyDao.findAll(spec, PageRequest.of(page - 1, size));
     }
-
 }
