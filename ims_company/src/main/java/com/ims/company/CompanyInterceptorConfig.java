@@ -13,8 +13,7 @@ public class CompanyInterceptorConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor).
-                addPathPatterns("/**").
-                excludePathPatterns(""); //设置不拦截的请求地址
+                addPathPatterns("/**");
     }
 }
 
