@@ -25,7 +25,7 @@ public class ProfileResult implements Serializable {
      */
     public ProfileResult(User user, List<Permission> list) {
         this.mobile = user.getMobile();
-        this.username = user.getUsername();
+        this.username = user.getName();
         this.company = user.getCompanyName();
         this.companyId = user.getCompanyId();
         this.userId = user.getId();
@@ -51,7 +51,7 @@ public class ProfileResult implements Serializable {
 
     public ProfileResult(User user) {
         this.mobile = user.getMobile();
-        this.username = user.getUsername();
+        this.username = user.getName();
         this.company = user.getCompanyName();
         this.companyId = user.getCompanyId();
         this.userId = user.getId();
@@ -60,19 +60,22 @@ public class ProfileResult implements Serializable {
         Set<String> points = new HashSet<>();
         Set<String> apis = new HashSet<>();
         for (Role role : roles) {
-            Set<Permission> perms = role.getPermissions();
-            for (Permission perm : perms) {
-                String code = perm.getCode();
-                if(perm.getType() == 1) {
-                    menus.add(code);
-                }else if(perm.getType() == 2) {
-                    points.add(code);
-                }else {
-                    apis.add(code);
+            if (role.getState().equals("1")){
+                Set<Permission> perms = role.getPermissions();
+                for (Permission perm : perms) {
+                    String code = perm.getCode();
+                    if (perm.getState().equals("1")){
+                        if(perm.getType() == 1) {
+                            menus.add(code);
+                        }else if(perm.getType() == 2) {
+                            points.add(code);
+                        }else {
+                            apis.add(code);
+                        }
+                    }
                 }
             }
         }
-
         this.roles.put("menus",menus);
         this.roles.put("points",points);
         this.roles.put("apis",apis);
