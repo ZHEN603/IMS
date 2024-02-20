@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ims-product
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ims-product
+  template:
+    metadata:
+      labels:
+        app: ims-product
+    spec:
+      containers:
+        - name: ims-product
+          image: ims-product:1.0
+          ports:
+            - containerPort: 9003
