@@ -1,7 +1,7 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:6868/eureka
+      defaultZone: http://localhost:9000/eureka
   instance:
     prefer-ip-address: true
     instance-id: ims-product
@@ -19,7 +19,25 @@ jpa:
   database: MySQL
   show-sql: true
   open-in-view: true
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+  jackson:
+    enabled: true
 jwt:
   config:
     key: LZY-ims
-    ttl: 360000
+    ttl: 36000000
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework: DEBUG
+    com.ims: DEBUG
+    feign.client: DEBUG
