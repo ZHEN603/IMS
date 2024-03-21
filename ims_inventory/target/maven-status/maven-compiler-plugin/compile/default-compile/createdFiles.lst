@@ -1,0 +1,14 @@
+com\ims\inventory\dao\OrderDetailDao.class
+com\ims\inventory\service\InventoryService.class
+com\ims\inventory\service\InventoryService$2.class
+com\ims\inventory\service\OrderService.class
+com\ims\inventory\controller\OrderController.class
+com\ims\inventory\dao\InventoryDao.class
+com\ims\inventory\service\OrderService$1.class
+com\ims\inventory\service\InventoryService$3.class
+com\ims\inventory\InventoryApplication.class
+com\ims\inventory\client\ProductFeignClient.class
+com\ims\inventory\InventoryInterceptorConfig.class
+com\ims\inventory\dao\OrderDao.class
+com\ims\inventory\controller\InventoryController.class
+com\ims\inventory\service\InventoryService$1.class

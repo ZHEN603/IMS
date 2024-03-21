@@ -1,0 +1,38 @@
+server:
+  port: 9004
+spring:
+  application:
+    name: ims-inventory
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://host.docker.internal:3306/ims?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: root
+  http:
+    log-request-details: true
+jpa:
+  database: MySQL
+  show-sql: true
+  open-in-view: true
+jwt:
+  config:
+    key: LZY-ims
+    ttl: 36000000
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+  jackson:
+    enabled: true
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework: DEBUG
+    com.ims: DEBUG
+    feign.client: DEBUG

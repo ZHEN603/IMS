@@ -1,0 +1,13 @@
+com\ims\domain\user\User.class
+com\ims\domain\inventory\OrderDetail.class
+com\ims\domain\user\Permission.class
+com\ims\domain\product\Product.class
+com\ims\domain\product\Category.class
+com\ims\domain\user\response\RoleResult.class
+com\ims\domain\company\Company.class
+com\ims\domain\inventory\Inventory.class
+com\ims\domain\user\response\ProfileResult.class
+com\ims\domain\inventory\Order.class
+com\ims\domain\supplier\Supplier.class
+com\ims\domain\product\reponse\CategoryListResult.class
+com\ims\domain\user\Role.class

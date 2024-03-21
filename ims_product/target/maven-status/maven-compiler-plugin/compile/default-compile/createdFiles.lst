@@ -1,0 +1,11 @@
+com\ims\product\service\CategoryService.class
+com\ims\product\service\ProductService$1.class
+com\ims\product\controller\ProductController.class
+com\ims\product\controller\CategoryController.class
+com\ims\product\dao\ProductDao.class
+com\ims\product\service\ProductService.class
+com\ims\product\ProductInterceptorConfig.class
+com\ims\product\ProductApplication.class
+com\ims\product\client\InventoryFeignClient.class
+com\ims\product\dao\CategoryDao.class
+com\ims\product\service\ProductService$2.class

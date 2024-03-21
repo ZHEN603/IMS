@@ -1,5 +1,5 @@
 server:
-  port: 6868 #服务端口
+  port: 9000 #服务端口
 eureka:
   client:
     registerWithEureka: false #是否将自己注册到Eureka服务中，本身就是所有无需注册

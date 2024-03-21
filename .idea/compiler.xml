@@ -9,13 +9,18 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ims_eureka" />
         <module name="ims_gate" />
-        <module name="ims_company" />
-        <module name="ims_user" />
+        <module name="ims_product" />
+        <module name="ims_inventory" />
         <module name="ims_common" />
         <module name="ims_common_model" />
+        <module name="ims_supplier" />
+        <module name="ims_company" />
+        <module name="ims_user" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="ims_inbound" target="17" />
+      <module name="ims_outbound" target="17" />
       <module name="ins_user" target="17" />
       <module name="untitled" target="21" />
       <module name="untitled1" target="17" />
@@ -28,7 +33,12 @@
       <module name="ims_company" options="-parameters" />
       <module name="ims_eureka" options="-parameters" />
       <module name="ims_gate" options="-parameters" />
-      <module name="ims_parent" options="-parameters" />
+      <module name="ims_inbound" options="-parameters" />
+      <module name="ims_inventory" options="-parameters" />
+      <module name="ims_outbound" options="-parameters" />
+      <module name="ims_parent" options="" />
+      <module name="ims_product" options="-parameters" />
+      <module name="ims_supplier" options="-parameters" />
       <module name="ims_user" options="-parameters" />
       <module name="ins_user" options="-parameters" />
       <module name="untitled1" options="-parameters" />

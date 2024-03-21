@@ -10,6 +10,8 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/ims_inbound/pom.xml" />
+        <option value="$PROJECT_DIR$/ims_outbound/pom.xml" />
         <option value="$PROJECT_DIR$/ins_user/pom.xml" />
         <option value="$PROJECT_DIR$/untitled/pom.xml" />
         <option value="$PROJECT_DIR$/untitled1/pom.xml" />

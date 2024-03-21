@@ -1,0 +1,13 @@
+com\ims\user\controller\PermissionController.class
+com\ims\user\UserApplication.class
+com\ims\user\service\RoleService.class
+com\ims\user\dao\UserDao.class
+com\ims\user\dao\PermissionDao.class
+com\ims\user\service\PermissionService.class
+com\ims\user\controller\UserController.class
+com\ims\user\UserInterceptorConfig.class
+com\ims\user\service\PermissionService$1.class
+com\ims\user\dao\RoleDao.class
+com\ims\user\controller\RoleController.class
+com\ims\user\service\UserService.class
+com\ims\user\service\UserService$1.class
