@@ -1,0 +1,28 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: ims-gate
+  cloud:
+    gateway:
+      routes:
+        - id: company
+          uri: http://ims-company.default.svc.cluster.local:9001
+          predicates:
+            - Path=/company/**
+        - id: inventory
+          uri: http://ims-inventory.default.svc.cluster.local:9004
+          predicates:
+            - Path=/inventory/**
+        - id: product
+          uri: http://ims-product.default.svc.cluster.local:9003
+          predicates:
+            - Path=/product/**
+        - id: supplier
+          uri: http://ims-supplier.default.svc.cluster.local:9005
+          predicates:
+            - Path=/supplier/**
+        - id: user
+          uri: http://ims-user.default.svc.cluster.local:9002
+          predicates:
+            - Path=/user/**
