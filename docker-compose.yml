@@ -1,0 +1,20 @@
+version: '3'
+services:
+  ims_company:
+    build: ./ims_company
+    image: ims_company:1.0
+  ims_gate:
+    build: ./ims_gate
+    image: ims_gate:1.0
+  ims_inventory:
+    build: ./ims_inventory
+    image: ims_inventory:1.0
+  ims_product:
+    build: ./ims_product
+    image: ims_product:1.0
+  ims_supplier:
+    build: ./ims_supplier
+    image: ims_supplier:1.0
+  ims_user:
+    build: ./ims_user
+    image: ims_user:1.0
