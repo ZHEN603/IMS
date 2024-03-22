@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ims-company
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ims-company
+  template:
+    metadata:
+      labels:
+        app: ims-company
+    spec:
+      containers:
+        - name: ims-company
+          image: ims-company:1.0
+          ports:
+            - containerPort: 9001

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ims-supplier
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ims-supplier
+  template:
+    metadata:
+      labels:
+        app: ims-supplier
+    spec:
+      containers:
+        - name: ims-supplier
+          image: ims-supplier:1.0
+          ports:
+            - containerPort: 9005

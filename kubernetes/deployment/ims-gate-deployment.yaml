@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ims-gate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ims-gate
+  template:
+    metadata:
+      labels:
+        app: ims-gate
+    spec:
+      containers:
+        - name: ims-gate
+          image: ims-gate:1.0
+          ports:
+            - containerPort: 9000
