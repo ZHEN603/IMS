@@ -8,6 +8,7 @@ import com.ims.domain.inventory.Inventory;
 import com.ims.domain.product.Product;
 import com.ims.inventory.client.ProductFeignClient;
 import com.ims.inventory.dao.InventoryDao;
+import com.ims.inventory.mq.InventoryMessageSender;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -19,10 +20,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +33,9 @@ public class InventoryService extends BaseService {
     @Autowired
     private ProductFeignClient productFeignClient;
 
+    @Autowired
+    private InventoryMessageSender inventoryMessageSender;
+
     public void save(Map<String,Object> map) {
         String id = idWorker.nextId()+"";
         Inventory inventory = new Inventory();
@@ -46,7 +47,14 @@ public class InventoryService extends BaseService {
         inventory.setQuantity((Integer) map.get("quantity"));
         inventory.setLowStock((Integer) map.get("lowStock"));
         inventory.setCompanyId((String)map.get("companyId"));
-        inventoryDao.save(inventory);
+//        try{
+            inventoryDao.save(inventory);
+//        }catch (Exception e){
+//            Map<String,String> message = new HashMap<>();
+//            message.put("id",(String)map.get("productId"));
+//            message.put("route","create");
+//            inventoryMessageSender.sendRollbackMessage(message);
+//        }
     }
 
     public void update(Inventory inventory) {

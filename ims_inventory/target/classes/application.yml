@@ -17,6 +17,11 @@ spring:
     password: root
   http:
     log-request-details: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 jpa:
   database: MySQL
   show-sql: true

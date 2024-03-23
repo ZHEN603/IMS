@@ -1,6 +1,7 @@
 package com.ims.company.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ims.common.entity.Result;
 import com.ims.common.utils.IdWorker;
 import com.ims.company.client.UserFeignClient;
 import com.ims.company.dao.CompanyDao;
@@ -34,7 +35,10 @@ public class CompanyService {
         company.setManagerId(userId);
         company.setCreateTime(new Date());
         companyDao.save(company);
-        userFeignClient.saveAdmin(userId, company.getName(), company.getId());
+        Result res = userFeignClient.saveAdmin(userId, company.getName(), company.getId());
+        if (!res.getCode().equals(10000)){
+            throw new RuntimeException("Create Admin Account Failed");
+        }
     }
 
     public void update(Company company) { companyDao.save(company); }

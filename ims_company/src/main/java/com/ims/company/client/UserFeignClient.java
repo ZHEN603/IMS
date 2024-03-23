@@ -6,8 +6,8 @@ import com.ims.domain.user.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-//@FeignClient("ims-user")
-@FeignClient(name = "ims-user", url = "http://ims-user:9002")
+//@FeignClient(name = "ims-user", url = "http://ims-user:9002")
+@FeignClient("ims-user")
 public interface UserFeignClient {
     //Full path
     @RequestMapping(value = "/user/admin", method = RequestMethod.POST)

@@ -126,6 +126,6 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
     Result saveAdmin(@RequestParam("id") String id, @RequestParam("companyName") String companyName, @RequestParam("companyId") String companyId){
         userService.saveAdmin(id, companyName, companyId);
-        return new Result(ResultCode.SUCCESS);
+        return new Result(ResultCode.SERVER_ERROR);
     }
 }

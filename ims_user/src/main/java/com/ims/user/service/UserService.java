@@ -99,6 +99,7 @@ public class UserService {
         return userDao.findAll(spec, PageRequest.of(page - 1, size));
     }
 
+    @Transactional
     public void saveAdmin(String id, String companyName, String companyId){
         User user = new User();
         user.setId(id);
@@ -110,6 +111,8 @@ public class UserService {
         user.setState(1);
         user.setCreateTime(new Date());
         userDao.save(user);
+
+
     }
 }
 

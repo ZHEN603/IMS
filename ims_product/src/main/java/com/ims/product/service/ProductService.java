@@ -1,6 +1,7 @@
 package com.ims.product.service;
 
 import com.ims.common.entity.Result;
+import com.ims.common.message.ProductMessage;
 import com.ims.common.service.BaseService;
 import com.ims.common.utils.IdWorker;
 import com.ims.domain.product.Product;
@@ -8,6 +9,7 @@ import com.ims.domain.user.Role;
 import com.ims.product.client.InventoryFeignClient;
 import com.ims.product.dao.CategoryDao;
 import com.ims.product.dao.ProductDao;
+import com.ims.product.mq.ProductMessageSender;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -37,6 +39,9 @@ public class ProductService extends BaseService {
     @Autowired
     private IdWorker idWorker;
 
+    @Autowired
+    private ProductMessageSender messageSender;
+
     public void save(Map<String, Object> map) {
         // save new product
         String id = idWorker.nextId()+"";
@@ -59,11 +64,14 @@ public class ProductService extends BaseService {
         map.remove("cost");
         map.remove("description");
 
-        inventoryFeignClient.save(map);
+//        inventoryFeignClient.save(map);
+        messageSender.sendProductCreateMessage(product);
     }
+
 
     public void update(Product product) {
         productDao.save(product);
+        messageSender.sendProductUpdateMessage(product);
     }
 
     public void deleteById(String id) {

@@ -15,6 +15,7 @@ import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 //2.配置jpa注解的扫描
 @EntityScan(value="com.ims.domain.user")
 @EnableFeignClients
+@EnableDiscoveryClient
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class,args);
