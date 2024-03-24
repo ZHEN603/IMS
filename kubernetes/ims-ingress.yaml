@@ -7,8 +7,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: ims.test
-      http:
+    # - host: ims.test
+    - http:
         paths:
           - path: /
             pathType: Prefix
@@ -17,10 +17,10 @@ spec:
                 name: ims-vue
                 port:
                   number: 8080
-#          - path: /
-#            pathType: Prefix
-#            backend:
-#              service:
-#                name: ims-gate
-#                port:
-#                  number: 9000
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: ims-gate
+                port:
+                  number: 9000

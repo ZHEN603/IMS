@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ims-inventory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ims-inventory
+  template:
+    metadata:
+      labels:
+        app: ims-inventory
+    spec:
+      containers:
+        - name: ims-inventory
+          image: zhen603/ims-inventory:1.3
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 9004
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
+          command: [ "/cloud_sql_proxy",
+                     "-instances=tonal-baton-417817:europe-west2:ims-db=tcp:3306",
+                     "-credential_file=/secrets/tonal-baton-417817-54a954177d26.json" ]
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets
+              readOnly: true
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
