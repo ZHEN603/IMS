@@ -3,14 +3,12 @@ package com.ims.user.controller;
 import com.ims.common.entity.Result;
 import com.ims.common.entity.ResultCode;
 import com.ims.common.exception.CommonException;
-import com.ims.domain.company.Company;
 import com.ims.domain.user.Permission;
 import com.ims.user.service.PermissionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.annotation.Resource;
-import java.util.List;
+
 import java.util.Map;
 
 @CrossOrigin
@@ -18,41 +16,42 @@ import java.util.Map;
 @RequestMapping(value = "/user")
 public class PermissionController {
 
-    @Autowired
+    @Resource
     private PermissionService permissionService;
 
-    @RequestMapping(value = "/permission" , method = RequestMethod.POST)
-    public Result save(@RequestBody Permission permission) throws Exception {
+    @PostMapping("/permission")
+    public Result add(@RequestBody Permission permission) throws Exception {
         permissionService.save(permission);
         return new Result(ResultCode.SUCCESS);
     }
 
-    @RequestMapping(value = "/permission/{id}" , method = RequestMethod.PUT)
+    @PutMapping("/permission/{id}")
     public Result update(@PathVariable(value = "id") String id , @RequestBody Permission permission) throws Exception {
         permission.setId(id);
         permissionService.update(permission);
         return new Result(ResultCode.SUCCESS);
     }
 
-    @RequestMapping(value = "/permission" , method = RequestMethod.GET)
-    public Result findAll(@RequestParam() Map map){
+    @GetMapping("/permission/list")
+    public Result findAll(@RequestParam() Map<String, Object> map){
         return new Result(ResultCode.SUCCESS , permissionService.findAll(map));
     }
 
-    @RequestMapping(value = "/permission/{id}" , method = RequestMethod.GET)
+    @GetMapping("/permission/{id}")
     public Result findById(@PathVariable(value = "id") String id) throws CommonException {
         return new Result(ResultCode.SUCCESS , permissionService.findById(id));
     }
 
-    @RequestMapping(value = "/permission/{id}" , method = RequestMethod.DELETE)
+    @DeleteMapping("/permission/{id}")
     public Result delete(@PathVariable(value = "id") String id) throws CommonException {
         permissionService.deleteById(id);
         return new Result(ResultCode.SUCCESS);
     }
-    @RequestMapping(value="/permission/{id}/state/{state}",method = RequestMethod.PUT)
-    public Result updateState(@PathVariable(value = "id") String id ,@PathVariable(value = "state") Integer state) {
+
+    @PutMapping("/permission/updateState/{id}")
+    public Result updateState(@PathVariable(value = "id") String id ,@RequestBody Map<String, Integer> body) {
         Permission permission = permissionService.findById(id);
-        permission.setState(state);
+        permission.setState(body.get("state"));
         permissionService.update(permission);
         return new Result(ResultCode.SUCCESS);
     }

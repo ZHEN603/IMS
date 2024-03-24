@@ -5,7 +5,7 @@ import com.ims.common.entity.Result;
 import com.ims.common.entity.ResultCode;
 import com.ims.domain.product.Category;
 import com.ims.product.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,39 +14,41 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/product")
 public class CategoryController extends BaseController {
-    @Autowired
+    @Resource
     private CategoryService categoryService;
 
-    @RequestMapping(value="/category",method = RequestMethod.POST)
-    public Result save(@RequestBody Category category) {
+    @PostMapping("/category")
+    public Result add(@RequestBody Category category) {
         category.setCompanyId(companyId);
         categoryService.save(category);
         return new Result(ResultCode.SUCCESS);
     }
-    @RequestMapping(value="/category",method = RequestMethod.GET)
+
+    @GetMapping("/category/list")
     public Result findAll() {
         return new Result(ResultCode.SUCCESS,categoryService.findAll(companyId));
     }
 
-    @RequestMapping(value="/category/{id}",method = RequestMethod.GET)
+
+    @GetMapping("/category/{id}")
     public Result findById(@PathVariable(value="id") String id) {
         return new Result(ResultCode.SUCCESS,categoryService.findById(id));
     }
 
-    @RequestMapping(value="/category/{id}",method = RequestMethod.PUT)
+    @PutMapping("/category/{id}")
     public Result update(@PathVariable(value="id") String id,@RequestBody Category category) {
         category.setId(id);
         categoryService.update(category);
         return new Result(ResultCode.SUCCESS);
     }
 
-    @RequestMapping(value="/category/{id}",method = RequestMethod.DELETE)
+    @DeleteMapping("/category/{id}")
     public Result delete(@PathVariable(value="id") String id) {
         categoryService.deleteById(id);
         return new Result(ResultCode.SUCCESS);
     }
 
-    @RequestMapping(value="/category/child/{id}",method = RequestMethod.GET)
+    @GetMapping("/category/child/{id}")
     public List<String> findAllChildIds(@PathVariable(value="id") String id) {
         List<String> ids = new ArrayList<>();
         categoryService.findAllChildIds(id, ids);

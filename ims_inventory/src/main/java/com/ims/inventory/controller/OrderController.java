@@ -4,10 +4,11 @@ import com.ims.common.controller.BaseController;
 import com.ims.common.entity.PageResult;
 import com.ims.common.entity.Result;
 import com.ims.common.entity.ResultCode;
+import com.ims.common.exception.CommonException;
 import com.ims.domain.inventory.Order;
 import com.ims.domain.product.Product;
 import com.ims.inventory.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,18 +18,18 @@ import java.util.Map;
 @RestController
 @RequestMapping(value="/inventory")
 public class OrderController extends BaseController {
-    @Autowired
+    @Resource
     private OrderService orderService;
 
-    @RequestMapping(value="/order",method = RequestMethod.POST)
-    public Result save(@RequestBody Order order) {
+    @PostMapping("/order")
+    public Result save(@RequestBody Order order) throws CommonException {
         order.setCompanyId(companyId);
         orderService.save(order);
         return new Result(ResultCode.SUCCESS);
     }
 
     //Update
-    @RequestMapping(value = "/order/{id}",method = RequestMethod.PUT)
+    @PutMapping("/order/{id}")
     public Result update(@PathVariable(value="id") String id, @RequestBody Order order ) {
         order.setId(id);
         orderService.update(order);
@@ -36,43 +37,43 @@ public class OrderController extends BaseController {
     }
 
     //Delete
-    @RequestMapping(value="/order/{id}",method = RequestMethod.DELETE)
+    @DeleteMapping("/order/{id}")
     public Result delete(@PathVariable(value="id") String id) {
         orderService.deleteById(id);
         return new Result(ResultCode.SUCCESS);
     }
 
     //Find order by ID
-    @RequestMapping(value="/order/{id}",method = RequestMethod.GET)
+    @GetMapping("/order/{id}")
     public Result findById(@PathVariable(value="id") String id){
         return new Result(ResultCode.SUCCESS, orderService.findById(id));
     }
 
     //Update product's state
-    @RequestMapping(value="/order/{id}/state/{state}",method = RequestMethod.PUT)
-    public Result updateState(@PathVariable(value = "id") String id ,@PathVariable(value = "state") Integer state) {
+    @PutMapping("/order/updateState/{id}")
+    public Result updateState(@PathVariable(value = "id") String id ,@RequestBody Map<String, Integer> map) {
         Order order = orderService.findById(id);
-        order.setState(state);
+        order.setState(map.get("state"));
         orderService.update(order);
         return new Result(ResultCode.SUCCESS);
     }
 
-    @RequestMapping(value="/order/list",method = RequestMethod.GET)
-    public Result findAll(int page, int pagesize, @RequestParam() Map map) {
+    @GetMapping("/order/page")
+    public Result findByPage(int page, int pagesize, @RequestParam() Map map) {
         map.put("companyId", companyId);
         Page<Product> productPage = orderService.findByPage(map, page, pagesize);
         PageResult<Product> pageResult = new PageResult<>(productPage.getTotalElements(),productPage.getContent());
         return new Result(ResultCode.SUCCESS,pageResult);
     }
 
-    @RequestMapping(value="/order",method = RequestMethod.GET)
+    @GetMapping("/order/list")
     public Result findAll() {
         return new Result(ResultCode.SUCCESS,orderService.findAll(companyId));
     }
 
-    @RequestMapping(value="/order/complete/{id}",method = RequestMethod.PUT)
-    public Result complete(@PathVariable(value = "id") String id) {
-        orderService.complete(id);
+    @PutMapping("/order/complete/{id}")
+    public Result completeOrder(@PathVariable(value = "id") String id) throws CommonException {
+        orderService.completeOrder(id);
         return new Result(ResultCode.SUCCESS);
     }
 
