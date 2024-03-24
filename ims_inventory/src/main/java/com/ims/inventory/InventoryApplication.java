@@ -13,7 +13,7 @@ import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 @SpringBootApplication(scanBasePackages = "com.ims")
 @EntityScan(value="com.ims.domain.inventory")
 @EnableFeignClients
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class InventoryApplication {
     public static void main(String[] args) {
         SpringApplication.run(InventoryApplication.class,args);

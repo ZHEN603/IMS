@@ -2,6 +2,7 @@ package com.ims.user;
 
 import com.ims.common.utils.IdWorker;
 import com.ims.common.utils.JwtUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -14,21 +15,25 @@ import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 @SpringBootApplication(scanBasePackages = "com.ims")
 //2.配置jpa注解的扫描
 @EntityScan(value="com.ims.domain.user")
-@EnableFeignClients
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class,args);
     }
 
     @Bean
-    public IdWorker idWorkker() {
+    public IdWorker idWorker() {
         return new IdWorker(1, 1);
     }
 
     @Bean
     public JwtUtils jwtUtils() {
         return new JwtUtils();
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
     @Bean
