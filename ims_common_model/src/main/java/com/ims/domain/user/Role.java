@@ -2,11 +2,9 @@ package com.ims.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -14,7 +12,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "u_role")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Role implements Serializable {
@@ -26,12 +25,11 @@ public class Role implements Serializable {
     private String companyId;
     private Integer state;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<User>(0);
-
-
     @JsonIgnore
+    private Set<User> users = new HashSet<User>();
+
+
     @ManyToMany
     @JoinTable(name="u_role_permission",
             joinColumns={@JoinColumn(name="role_id",referencedColumnName="id")},

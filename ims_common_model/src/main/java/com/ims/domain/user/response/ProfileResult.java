@@ -14,6 +14,7 @@ import java.util.*;
 public class ProfileResult implements Serializable {
     private String userId;
     private String mobile;
+    private String email;
     private String username;
     private String company;
     private String companyId;
@@ -23,29 +24,15 @@ public class ProfileResult implements Serializable {
      *
      * @param user
      */
-    public ProfileResult(User user, List<Permission> list) {
+    public ProfileResult(User user, Map<String,Object> roles) {
         this.mobile = user.getMobile();
+        this.email = user.getEmail();
         this.username = user.getName();
         this.company = user.getCompanyName();
         this.companyId = user.getCompanyId();
         this.userId = user.getId();
-        Set<String> menus = new HashSet<>();
-        Set<String> points = new HashSet<>();
-        Set<String> apis = new HashSet<>();
+        this.roles = roles;
 
-        for (Permission perm : list) {
-            String code = perm.getCode();
-            if(perm.getType() == 1) {
-                menus.add(code);
-            }else if(perm.getType() == 2) {
-                points.add(code);
-            }else {
-                apis.add(code);
-            }
-        }
-        this.roles.put("menus",menus);
-        this.roles.put("points",points);
-        this.roles.put("apis",apis);
     }
 
 

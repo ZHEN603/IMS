@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name = "in_inventory")
@@ -21,4 +22,7 @@ public class Inventory {
     private String categoryId;
     private String productId;
     private String productName;
+
+    @Formula("quantity - low_stock")
+    private Integer difference;
 }

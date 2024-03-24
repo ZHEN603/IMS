@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface InventoryDao extends JpaRepository<Inventory,String> , JpaSpecificationExecutor<Inventory> {
     List<Inventory> findByProductId(String id);
+
+    void deleteByProductId(String id);
 }

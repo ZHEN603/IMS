@@ -25,6 +25,8 @@ public class Company implements Serializable {
     private String mobile;
     private String email;
     private String description;
+    private String type;
+    private String address;
     private Integer state;
     private Date createTime;
 }
