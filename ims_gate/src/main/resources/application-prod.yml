@@ -9,20 +9,40 @@ spring:
         - id: company
           uri: http://ims-company.default.svc.cluster.local:9001
           predicates:
-            - Path=/company/**
+            - Path=/api/company/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
         - id: inventory
           uri: http://ims-inventory.default.svc.cluster.local:9004
           predicates:
-            - Path=/inventory/**
+            - Path=/api/inventory/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
         - id: product
           uri: http://ims-product.default.svc.cluster.local:9003
           predicates:
-            - Path=/product/**
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
         - id: supplier
           uri: http://ims-supplier.default.svc.cluster.local:9005
           predicates:
-            - Path=/supplier/**
+            - Path=/api/supplier/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
         - id: user
           uri: http://ims-user.default.svc.cluster.local:9002
           predicates:
-            - Path=/user/**
+            - Path=/api/user/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: forecast
+          uri: http://ims-forecasting.default.svc.cluster.local:9006
+          predicates:
+            - Path=/api/forecast/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+jwt:
+  config:
+    key: LZY-ims
+    ttl: 36000000

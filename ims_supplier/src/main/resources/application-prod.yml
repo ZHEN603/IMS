@@ -5,11 +5,14 @@ spring:
     name: ims-supplier
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://host.docker.internal:3306/ims?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/ims?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: root
-  http:
-    log-request-details: true
+  rabbitmq:
+    host: my-rabbitmq
+    port: 5672
+    username: zhen
+    password: zhen
 jpa:
   database: MySQL
   show-sql: true

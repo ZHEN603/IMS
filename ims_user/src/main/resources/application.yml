@@ -1,9 +1,9 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:9000/eureka
-  instance:
-    prefer-ip-address: true
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:9000/eureka
+#  instance:
+#    prefer-ip-address: true
 
 server:
   port: 9002
@@ -15,8 +15,8 @@ spring:
     url: jdbc:mysql://localhost:3306/ims?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: root
-  http:
-    log-request-details: true
+#  http:
+#    log-request-details: true
   rabbitmq:
     host: localhost
     port: 5672
@@ -30,8 +30,9 @@ jwt:
   config:
     key: LZY-ims
     ttl: 36000000
-#logging:
-#  level:
-#    org.springframework.web: DEBUG
-#    feign.client: DEBUG
-
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework: DEBUG
+    com.ims: DEBUG
+    feign.client: DEBUG

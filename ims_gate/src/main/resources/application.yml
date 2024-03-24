@@ -2,37 +2,62 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:6868/eureka
+      defaultZone: http://localhost:9000/eureka
   instance:
     perfer-ip-address : true
-#服务配置
+
 server:
   port: 9090
-#spring配置
 spring:
-  #1.应用配置
   application:
-    name: ims-gate #指定服务名
-  #配置路由规则
+    name: ims-gate
+  main:
+    web-application-type: reactive
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ims?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: root
   cloud:
     gateway:
       routes:
         - id: company
           uri: http://localhost:9001
           predicates:
-            - Path=/company/**
-      discovery:
-        locator:
-          enable: true
-          lower-case-service-id: true
-#    routes:
-#      #路由id
-#      ims-company:
-#        path: /company/** #需要映射的路径地址
-#        server-id: ims-company  #映射路径对应的实际微服务的url路径
-#      ims-user:
-#        path: /user/** #需要映射的路径地址
-#        server-id: ims-user  #映射路径对应的实际微服务的url路径
-#      test:
-#        path: /test/** #需要映射的路径地址
-#        url: http://www.baidu.com  #映射路径对应的实际微服务的url路径
+            - Path=/api/company/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: inventory
+          uri: http://localhost:9004
+          predicates:
+            - Path=/api/inventory/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: product
+          uri: http://localhost:9003
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: supplier
+          uri: http://localhost:9005
+          predicates:
+            - Path=/api/supplier/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: user
+          uri: http://localhost:9002
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: forecast
+          uri: http://localhost:9006
+          predicates:
+            - Path=/api/forecast/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+jwt:
+  config:
+    key: LZY-ims
+    ttl: 36000000

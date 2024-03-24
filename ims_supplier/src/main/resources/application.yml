@@ -25,7 +25,9 @@ jwt:
   config:
     key: LZY-ims
     ttl: 36000000
-#logging:
-#  level:
-#    org.springframework.web: DEBUG
-#    feign.client: DEBUG
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework: DEBUG
+    com.ims: DEBUG
+    feign.client: DEBUG
