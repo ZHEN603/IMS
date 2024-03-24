@@ -1,7 +1,6 @@
 package com.ims.common.controller;
 
-import com.ims.domain.user.response.ProfileResult;
-import io.jsonwebtoken.Claims;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,22 +11,24 @@ public class BaseController {
     public HttpServletRequest request;
     public HttpServletResponse response;
     protected String companyId="1";
-    protected String companyName="company1";
-
-    protected Claims claims;
+    protected String companyName="IMS";
+    protected String userId;
 
     @ModelAttribute
     public void serResAndReq(HttpServletRequest request, HttpServletResponse response) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
         this.request = request;
         this.response = response;
 
-        Object obj = request.getAttribute("user_claims");
-        if (obj != null) {
-            this.claims = (Claims)obj;
-            this.companyId = (String) claims.get("companyId");
-            this.companyName = (String) claims.get("companyName");
+        if (request.getHeader("userId")!=null){
+            this.userId = request.getHeader("userId");
+        }
+        if (request.getHeader("companyId")!=null){
+            this.companyId = request.getHeader("companyId");
+        }
+        if (request.getHeader("companyName")!=null){
+            this.companyName = request.getHeader("companyName");
         }
     }
-
-
 }
