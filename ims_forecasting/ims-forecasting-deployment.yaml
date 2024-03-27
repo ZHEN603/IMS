@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ims-forecasting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ims-forecasting
+  template:
+    metadata:
+      labels:
+        app: ims-forecasting
+    spec:
+      containers:
+        - name: ims-forecasting
+          image: zhen603/ims-forecasting:1.0
+          ports:
+            - containerPort: 9006
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
+          command: [ "/cloud_sql_proxy",
+                      "-instances=tonal-baton-417817:europe-west2:ims-db=tcp:3306",
+                      "-credential_file=/secrets/tonal-baton-417817-54a954177d26.json" ]
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets
+              readOnly: true
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
+
